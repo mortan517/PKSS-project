@@ -4,6 +4,7 @@ import datetime
 app = Flask(__name__)
 
 
+
 db = sqlite3.connect('example.db', check_same_thread=False)
 # db.execute('DROP TABLE temperatures')
 # db.execute('CREATE TABLE temperatures (id TEXT, value TEXT, time TEXT)')

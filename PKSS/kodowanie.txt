@@ -1,0 +1,8 @@
+Um - zawór wyminnika
+Ub1 - zawór
+Ub2
+To - temp zewnêtrzne
+Tr1 - temp wew
+Tr2
+Tzn - zasilanie z miata
+Tpco - powrotna z budynku

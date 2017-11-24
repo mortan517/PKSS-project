@@ -9,6 +9,9 @@ db = sqlite3.connect('example.db', check_same_thread=False)
 db.execute('DROP TABLE temperatures')
 db.execute('CREATE TABLE temperatures (id TEXT, value TEXT, time TEXT)')
 db.execute('insert into temperatures values ("4", "5", "03.12")')
+db.execute('insert into temperatures values ("4", "6", "04.12")')
+db.execute('insert into temperatures values ("4", "2", "05.12")')
+db.execute('insert into temperatures values ("4", "3", "06.12")')
 db.commit()
 
 start_time = datetime.datetime.now().timestamp()
@@ -52,6 +55,7 @@ def prepare_chart():
             'ORDER BY time '
             'DESC LIMIT 3', [name])))
     result = [str(record) for record in result]
+    print(result)
     return render_template('template.html', name='\n'.join(result))
 
 

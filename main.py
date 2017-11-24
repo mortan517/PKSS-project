@@ -11,6 +11,8 @@ db.execute('CREATE TABLE temperatures (id TEXT, value TEXT, time TEXT)')
 db.execute('insert into temperatures values ("4", "5", "03.12")')
 db.commit()
 
+start_time = datetime.datetime.now().timestamp()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def flask_server():
@@ -18,7 +20,7 @@ def flask_server():
         if request.args:
             return get_particular_data(request.args)
         else:
-            return get_all_data()
+            return prepare_chart()
     elif request.method == 'POST':
         return send_data(request)
 
@@ -37,7 +39,7 @@ def get_particular_data(request_args):
     return str(result)
 
 
-def get_all_data():
+def prepare_chart():
     names = list(db.execute('SELECT DISTINCT(id) FROM temperatures'))
     names = [name[0] for name in names]
     print(names)
@@ -50,9 +52,7 @@ def get_all_data():
             'ORDER BY time '
             'DESC LIMIT 3', [name])))
     result = [str(record) for record in result]
-    # return "dd"
-
-    return hello(name='\n'.join(result))
+    return render_template('template.html', name='\n'.join(result))
 
 
 def send_data(request_data):
@@ -63,9 +63,10 @@ def send_data(request_data):
     return str(request_data.form.to_dict())
 
 
-@app.route('/chart', methods=['GET'])
-def hello(name=None):
-    return render_template('template.html', name=name)
+@app.route('/time', methods=['GET'])
+def time():
+    speedup = 10
+    return str(speedup * (datetime.datetime.now().timestamp() - start_time))
 
 
 app.run(host='0.0.0.0', port='80', threaded=True)

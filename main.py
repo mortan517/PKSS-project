@@ -6,20 +6,10 @@ app = Flask(__name__)
 
 
 db = sqlite3.connect('example.db', check_same_thread=False)
-<<<<<<< HEAD
 # db.execute('DROP TABLE temperatures')
 # db.execute('CREATE TABLE temperatures (id TEXT, value TEXT, time TEXT)')
 # db.execute('insert into temperatures values ("4", "5", "03.12")')
 # db.commit()
-=======
-db.execute('DROP TABLE temperatures')
-db.execute('CREATE TABLE temperatures (id TEXT, value TEXT, time TEXT)')
-db.execute('insert into temperatures values ("4", "5", "03.12")')
-db.execute('insert into temperatures values ("4", "6", "04.12")')
-db.execute('insert into temperatures values ("4", "2", "05.12")')
-db.execute('insert into temperatures values ("4", "3", "06.12")')
-db.commit()
->>>>>>> 1c6f1f43e3d5fcf581441ad21d9cd6d71fd23a93
 
 start_time = datetime.datetime.now().timestamp()
 
@@ -60,7 +50,6 @@ def prepare_chart():
             'FROM temperatures '
             'WHERE id = ? '
             'ORDER BY time '
-<<<<<<< HEAD
             'DESC LIMIT 10', [name])))
     # print(result)
 
@@ -71,12 +60,6 @@ def prepare_chart():
 
     # result = [str(record) for record in result]
     return render_template('template.html', name=result)
-=======
-            'DESC LIMIT 3', [name])))
-    result = [str(record) for record in result]
-    print(result)
-    return render_template('template.html', name='\n'.join(result))
->>>>>>> 1c6f1f43e3d5fcf581441ad21d9cd6d71fd23a93
 
 
 def send_data(request_data):

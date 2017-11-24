@@ -63,6 +63,7 @@ def send_data(request_data):
     return str(request_data.form.to_dict())
 
 
+@app.route('/chart', methods=['GET'])
 def hello(name=None):
     return render_template('template.html', name=name)
 

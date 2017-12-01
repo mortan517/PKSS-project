@@ -59,7 +59,7 @@ def prepare_chart():
 
     # print(result)
 
-    return render_template('template.html', name=result)
+    return render_template('dupa.html', name=result)
 
 
 def send_data(request_data):

@@ -1,0 +1,21 @@
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+  <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+  <script>
+    var trace1 = {
+      x: [{{ range(name['Um'][1]|count)|join(',') }}], 
+      y: [{{ name['Um'][1]|join(',') }}], 
+      type: 'scatter',
+      name: 'Um'
+    };
+    var trace2 = {
+      x: [{{ range(name['To'][1]|count)|join(',') }}], 
+      y: [{{ name['To'][1]|join(',') }}], 
+      type: 'scatter',
+      name: 'To'
+    };
+    var data = [trace1, trace2];
+    Plotly.newPlot('myDiv', data);
+  </script>
+</body>

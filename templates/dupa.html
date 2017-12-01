@@ -11,7 +11,7 @@
         name: '{{key}}'
       };
     {% endfor %}
-    var data = [{% for key, value in name.items() %}trace{{key}},{% endfor %}traceXXX];
+    var data = [{% for key, value in name.items() %}trace{{key}},{% endfor %}];
     Plotly.newPlot('myDiv', data);
   </script>
 </body>

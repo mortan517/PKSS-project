@@ -57,7 +57,10 @@ def prepare_chart():
         result[name] = [str([tuple_el[2] for tuple_el in values_list][::-1]),
                         [str(tuple_el[1]) for tuple_el in values_list][::-1]]
 
-    # print(result)
+    print(result)
+    # TODO Change time to seconds so that time characteristics are visible on the plot.
+    # x = time.strptime('00:01:00,000'.split(',')[0],'%H:%M:%S')
+    # datetime.timedelta(hours=x.tm_hour,minutes=x.tm_min,seconds=x.tm_sec).total_seconds()
 
     return render_template('dupa.html', name=result)
 

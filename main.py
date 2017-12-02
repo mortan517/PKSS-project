@@ -26,6 +26,26 @@ def flask_server():
     elif request.method == 'POST':
         return send_data(request)
 
+@app.route('/web.html', methods=['GET'])
+def flask_server0():
+
+	return prepare_chart()
+	
+@app.route('/web1.html', methods=['GET'])
+def flask_server1():
+
+	return prepare_chart1()
+
+	
+@app.route('/web2.html', methods=['GET'])
+def flask_server2():
+
+	return prepare_chart2()
+
+@app.route('/web3.html', methods=['GET'])
+def flask_server3():
+
+	return prepare_chart3()
 
 def get_particular_data(request_args):
     names = list(request_args.getlist(key) for key in request_args.keys())[0]
@@ -58,6 +78,60 @@ def prepare_chart():
         result[name] = [times, values]
     return render_template('web.html', name=result)
 
+
+def prepare_chart2():
+    names = list(db.execute('SELECT DISTINCT(id) FROM temperatures'))
+    names = [name[0] for name in names]
+    result = {}
+    for name in names:
+        result[name] = (list(db.execute(
+            'SELECT * '
+            'FROM temperatures '
+            'WHERE id = ? '
+            'ORDER BY time '
+            'DESC LIMIT 50', [name])))
+    for name, values_list in result.items():
+        times = str([tuple_el[2] for tuple_el in values_list][::-1])
+        print(times)
+        values = [str(tuple_el[1]) for tuple_el in values_list][::-1]
+        result[name] = [times, values]
+    return render_template('web2.html', name=result)
+
+def prepare_chart1():
+    names = list(db.execute('SELECT DISTINCT(id) FROM temperatures'))
+    names = [name[0] for name in names]
+    result = {}
+    for name in names:
+        result[name] = (list(db.execute(
+            'SELECT * '
+            'FROM temperatures '
+            'WHERE id = ? '
+            'ORDER BY time '
+            'DESC LIMIT 50', [name])))
+    for name, values_list in result.items():
+        times = str([tuple_el[2] for tuple_el in values_list][::-1])
+        print(times)
+        values = [str(tuple_el[1]) for tuple_el in values_list][::-1]
+        result[name] = [times, values]
+    return render_template('web1.html', name=result)	
+
+def prepare_chart3():
+    names = list(db.execute('SELECT DISTINCT(id) FROM temperatures'))
+    names = [name[0] for name in names]
+    result = {}
+    for name in names:
+        result[name] = (list(db.execute(
+            'SELECT * '
+            'FROM temperatures '
+            'WHERE id = ? '
+            'ORDER BY time '
+            'DESC LIMIT 50', [name])))
+    for name, values_list in result.items():
+        times = str([tuple_el[2] for tuple_el in values_list][::-1])
+        print(times)
+        values = [str(tuple_el[1]) for tuple_el in values_list][::-1]
+        result[name] = [times, values]
+    return render_template('web3.html', name=result)
 
 def send_data(request_data):
     for name, value in request_data.form.to_dict().items():

@@ -71,7 +71,7 @@
   // Jinja begin
   {% for key, value in name.items() %}
     var trace{{ key }} = {
-      x: [{{ range(name[key][1]|count)|join(',') }}], 
+      x: {{ name[key][0] }}, 
       y: [{{ name[key][1]|join(',') }}], 
       type: 'scatter',
       name: '{{key}}'

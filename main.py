@@ -4,7 +4,6 @@ import datetime
 
 app = Flask(__name__)
 
-
 db = sqlite3.connect('example.db', check_same_thread=False)
 # db.execute('DROP TABLE temperatures')
 # db.execute('CREATE TABLE temperatures (id TEXT, value TEXT, time TEXT)')
@@ -42,7 +41,7 @@ def get_particular_data(request_args):
 def prepare_chart():
     names = list(db.execute('SELECT DISTINCT(id) FROM temperatures'))
     names = [name[0] for name in names]
-    print(names)
+    # print(names)
     result = {}
     for name in names:
         result[name] = (list(db.execute(
@@ -54,12 +53,12 @@ def prepare_chart():
     # print(result)
 
     for name, values_list in result.items():
-        result[name] = [str([tuple_el[2] for tuple_el in values_list][::-1]),
+        result[name] = [str([int((datetime.datetime.now() - datetime.datetime.strptime(tuple_el[2],'%Y-%m-%d %H:%M:%S.%f')).total_seconds()) for tuple_el in values_list][::-1]),
                         [str(tuple_el[1]) for tuple_el in values_list][::-1]]
 
     print(result)
     # TODO Change time to seconds so that time characteristics are visible on the plot.
-    # x = time.strptime('00:01:00,000'.split(',')[0],'%H:%M:%S')
+    # dt = datetime.strptime(xx, '%Y-%m-%d %H:%M:%S.%f')
     # datetime.timedelta(hours=x.tm_hour,minutes=x.tm_min,seconds=x.tm_sec).total_seconds()
 
     return render_template('web.html', name=result)

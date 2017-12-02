@@ -72,7 +72,7 @@ def prepare_chart(which):
             'FROM temperatures '
             'WHERE id = ? '
             'ORDER BY time '
-            'DESC LIMIT 50', [name])))
+            'DESC', [name])))
     for name, values_list in result.items():
         times = str([tuple_el[2] for tuple_el in values_list][::-1])
         values = [str(tuple_el[1]) for tuple_el in values_list][::-1]

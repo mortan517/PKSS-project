@@ -8,15 +8,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
-.w3-sidebar {
-  z-index: 3;
-  width: 250px;
-  top: 43px;
-  bottom: 0;
-  height: inherit;
-}
+  html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+  .w3-sidebar {
+    z-index: 3;
+    width: 250px;
+    top: 43px;
+    bottom: 0;
+    height: inherit;
+  }
 </style>
+
 <body>
 
 <!-- Navbar -->
@@ -46,35 +47,40 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 <div class="w3-main" style="margin-left:250px">
-
   <div class="w3-row w3-padding-64" >
     <div class="w3-twothird w3-container" height: 1000px>
       <h1 class="w3-text-teal">Wykres</h1>
-	  <img src="images.png" width=50% height=50% />
+    <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
         dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
-
   </div>
-
-
-
-
-
   <footer id="myFooter">
     <div class="w3-container w3-theme-l2 w3-padding-32">
       <h4>Footer</h4>
     </div>
-
     <div class="w3-container w3-theme-l1">
       <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
     </div>
   </footer>
-
 <!-- END MAIN -->
 </div>
 
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
+  // Jinja begin
+  {% for key, value in name.items() %}
+    var trace{{ key }} = {
+      x: [{{ range(name[key][1]|count)|join(',') }}], 
+      y: [{{ name[key][1]|join(',') }}], 
+      type: 'scatter',
+      name: '{{key}}'
+    };
+  {% endfor %}
+  var data = [{% for key, value in name.items() %}trace{{key}},{% endfor %}];
+  Plotly.newPlot('myDiv', data);
+  // Jinja end
+
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
 
@@ -98,6 +104,5 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 </script>
-
 </body>
 </html>

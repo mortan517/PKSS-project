@@ -62,7 +62,7 @@ def prepare_chart():
     # x = time.strptime('00:01:00,000'.split(',')[0],'%H:%M:%S')
     # datetime.timedelta(hours=x.tm_hour,minutes=x.tm_min,seconds=x.tm_sec).total_seconds()
 
-    return render_template('dupa.html', name=result)
+    return render_template('web.html', name=result)
 
 
 def send_data(request_data):

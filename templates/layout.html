@@ -1,0 +1,95 @@
+<!doctype html>
+<title>CSS Grid Template 1</title>
+<style>
+body { 
+  display: grid;
+  grid-template-areas: 
+    "header header header"
+    "nav article article"
+    "footer footer footer";
+  grid-template-rows: 80px 1fr 70px;  
+  grid-template-columns: 20% 1fr;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  height: 90vh;
+  margin-right: 300px;
+  margin-left: 300px;
+  margin-top: 50px;
+
+  }  
+footer, article, nav {
+  padding: 1.2em;
+  background: #hhhhhh;
+  }
+#pageHeader {
+	font-size: 32px;
+		text-align: center;
+		padding-bottom: 20px;
+		padding-top: 20px;
+		border-radius: 20px;
+		background: #149396;
+	    border: 3px solid black;
+		font-family: "Times New Roman", Times, serif;
+		
+  grid-area: header;
+  }
+#pageFooter {
+  grid-area: footer;
+  }
+#mainArticle { 
+  grid-area: article;      
+  }
+#mainNav { 
+  grid-area: nav; 
+  }
+#siteAds { 
+  grid-area: ads; 
+  } 
+#button {
+    background-color: #149396 !important;  /* Green */
+    border: 2px solid black;
+    color: white !important;
+    padding: 20px 50px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+	border-radius: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#choose{
+	font-size: 16px;
+	width: 225px;
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom:10px;
+	margin-bottom: 10px;
+	}
+/* Stack the layout on small devices/viewports. */
+@media all and (max-width: 575px) {
+  body { 
+    grid-template-areas: 
+      "header"
+      "article"
+      "ads"
+      "nav"
+      "footer";
+    grid-template-rows: 80px 1fr 70px 1fr 70px;  
+    grid-template-columns: 1fr;
+ }
+}
+</style>
+<body>
+  <header id="pageHeader">Wizualizacja przebiegów syna³ów.</header>
+  <article id="mainArticle"></article>
+  <nav id="mainNav">
+  <div id='choose'>Choose Visualization:</div>
+  <div id='button' name='button1'>Button </div>
+  <div id='button' name='button2'>Button </div>
+  <div id='button' name='button3'>Button </div>
+  <div id='button' name='button4'>Button </div>
+  </nav>
+
+
+  <footer id="pageFooter"></footer>
+</body>

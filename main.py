@@ -32,7 +32,6 @@ def flask_server():
     elif request.method == 'POST':
         return send_data(request)
 
-
 @app.route('/temperatures.html', methods=['GET'])
 def flask_server0():
     return prepare_chart('temp')

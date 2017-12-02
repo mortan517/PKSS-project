@@ -1,0 +1,17 @@
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+  <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+  <script>
+    {% for key, value in name.items() %}
+      var trace{{ key }} = {
+        x: [{{ range(name[key][1]|count)|join(',') }}], 
+        y: [{{ name[key][1]|join(',') }}], 
+        type: 'scatter',
+        name: '{{key}}'
+      };
+    {% endfor %}
+    var data = [{% for key, value in name.items() %}trace{{key}},{% endfor %}];
+    Plotly.newPlot('myDiv', data);
+  </script>
+</body>

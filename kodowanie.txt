@@ -1,7 +1,7 @@
-Um - zawór wyminnika
-Ub1 - zawór
+Um - zawor wyminnika
+Ub1 - zawor
 Ub2
-To - temp zewnêtrzne
+To - temp zewnetrzne
 Tr1 - temp wew
 Tr2
 Tzn - zasilanie z miata

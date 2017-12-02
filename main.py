@@ -6,19 +6,15 @@ now = datetime.datetime.now
 strptime = datetime.datetime.strptime
 
 PLOTS = {
-    'temp': ('temperatures.html', ['Tpco', 'Tzco', 'Tr1', 'Tr2']),
-    'control': ('control.html', ['Tr1']),
-    'building1': ('building1.html', ['Tzco']),
-    'building2': ('building2.html', ['Tpco']),
+    'temp': ('temperatures.html', ['Tpco', 'Tzco']),
+    'control': ('control.html', ['Tpco']),
+    'building1': ('building1.html', ['Tr1']),
+    'building2': ('building2.html', ['Tr2']),
 }
 
 app = Flask(__name__)
 
 db = sqlite3.connect('example.db', check_same_thread=False)
-# db.execute('DROP TABLE temperatures')
-# db.execute('CREATE TABLE temperatures (id TEXT, value TEXT, time TEXT)')
-# db.execute('insert into temperatures values ("4", "5", "03.12")')
-# db.commit()
 
 start_time = datetime.datetime.now().timestamp()
 
@@ -26,11 +22,13 @@ start_time = datetime.datetime.now().timestamp()
 @app.route('/', methods=['GET', 'POST'])
 def flask_server():
     if request.method == 'GET':
-        print(request.args)
         if request.args:
             return get_particular_data(request.args)
+        else:
+            return prepare_chart('temp')
     elif request.method == 'POST':
         return send_data(request)
+
 
 @app.route('/temperatures.html', methods=['GET'])
 def flask_server0():
@@ -67,7 +65,6 @@ def get_particular_data(request_args):
 
 def prepare_chart(which):
     html, names = PLOTS[which]
-    print(html, names)
     result = {}
     for name in names:
         result[name] = (list(db.execute(
@@ -85,8 +82,7 @@ def prepare_chart(which):
 
 def send_data(request_data):
     for name, value in request_data.form.to_dict().items():
-        db.execute('INSERT INTO temperatures VALUES (?, ?, ?)',
-                   [name, value, now()])
+        db.execute('INSERT INTO temperatures VALUES (?, ?, ?)', [name, value, now()])
         db.commit()
     return str(request_data.form.to_dict())
 

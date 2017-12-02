@@ -52,8 +52,8 @@ def prepare_chart():
             'ORDER BY time '
             'DESC LIMIT 50', [name])))
     for name, values_list in result.items():
-        times = str([int((now() - strptime(tuple_el[2], '%Y-%m-%d %H:%M:%S.%f')).total_seconds())
-                     for tuple_el in values_list][::-1])
+        times = str([tuple_el[2] for tuple_el in values_list][::-1])
+        print(times)
         values = [str(tuple_el[1]) for tuple_el in values_list][::-1]
         result[name] = [times, values]
     return render_template('web.html', name=result)

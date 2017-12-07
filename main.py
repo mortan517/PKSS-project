@@ -6,10 +6,10 @@ now = datetime.datetime.now
 strptime = datetime.datetime.strptime
 
 PLOTS = {
-    'temp': ('temperatures.html', ['Tpco', 'Tzco']),
-    'control': ('control.html', ['Tpco']),
-    'building1': ('building1.html', ['Tr1']),
-    'building2': ('building2.html', ['Tr2']),
+    'temp': ('temperatures.html', ['Tpco', 'Tzco']), # Tpco Tr1, Tr2, Tzco
+    'control': ('control.html', ['Tpco']), # Um, Ub1, Ub2
+    'building1': ('building1.html', ['Tr1']), # Tr1
+    'building2': ('building2.html', ['Tr2']), # Tr2
 }
 
 app = Flask(__name__)

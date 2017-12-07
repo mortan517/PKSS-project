@@ -6,10 +6,10 @@ now = datetime.datetime.now
 strptime = datetime.datetime.strptime
 
 PLOTS = {
-    'temp': ('temperatures.html', ['Tpco', 'Tzco']), # Tpco Tr1, Tr2, Tzco
-    'control': ('control.html', ['Tpco']), # Um, Ub1, Ub2
-    'building1': ('building1.html', ['Tr1']), # Tr1
-    'building2': ('building2.html', ['Tr2']), # Tr2
+    'temperatures.html': ['Tpco', 'Tzco'], # Tpco Tr1, Tr2, Tzco
+    'control.html': ['Tpco'], # Um, Ub1, Ub2
+    'building1.html': ['Tr1'], # Tr1
+    'building2.html': ['Tr2'], # Tr2
 }
 
 app = Flask(__name__)
@@ -30,24 +30,9 @@ def flask_server():
         return send_data(request)
 
 
-@app.route('/temperatures.html', methods=['GET'])
-def flask_server0():
-    return prepare_chart('temp')
-
-
-@app.route('/control.html', methods=['GET'])
-def flask_server1():
-    return prepare_chart('control')
-
-
-@app.route('/building1.html', methods=['GET'])
-def flask_server2():
-    return prepare_chart('building1')
-
-
-@app.route('/building2.html', methods=['GET'])
-def flask_server3():
-    return prepare_chart('building2')
+@app.route('/<plot_type>', methods=['GET'])
+def flask_server0(plot_type):
+    return prepare_chart(plot_type)
 
 
 def get_particular_data(request_args):
@@ -63,10 +48,9 @@ def get_particular_data(request_args):
     return str(result)
 
 
-def prepare_chart(which):
-    html, names = PLOTS[which]
+def prepare_chart(plot_type):
     result = {}
-    for name in names:
+    for name in PLOTS[plot_type]:
         result[name] = (list(db.execute(
             'SELECT * '
             'FROM temperatures '
@@ -77,7 +61,7 @@ def prepare_chart(which):
         times = str([tuple_el[2] for tuple_el in values_list])
         values = [str(tuple_el[1]) for tuple_el in values_list]
         result[name] = [times, values]
-    return render_template(html, name=result)
+    return render_template(plot_type, name=result)
 
 
 def send_data(request_data):

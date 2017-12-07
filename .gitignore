@@ -1,3 +1,5 @@
 # VS Code
 *.idea
 *.vscode
+*.xml
+*.json

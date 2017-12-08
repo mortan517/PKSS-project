@@ -6,8 +6,8 @@ now = datetime.datetime.now
 strptime = datetime.datetime.strptime
 
 PLOTS = {
-    'temperatures.html': ['Tpco', 'Tzco'], # Tpco Tr1, Tr2, Tzco
-    'control.html': ['Tpco'], # Um, Ub1, Ub2
+    'temperatures.html': ['Tpco', 'Tzco', 'To'], # Tpco Tr1, Tr2, Tzco
+    'control.html': ['Tpco',], # Um, Ub1, Ub2
     'building1.html': ['Tr1'], # Tr1
     'building2.html': ['Tr2'], # Tr2
 }

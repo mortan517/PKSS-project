@@ -25,14 +25,22 @@ def flask_server():
         if request.args:
             return get_particular_data(request.args)
         else:
-            return prepare_chart('temp')
+            return prepare_chart('main.html')
     elif request.method == 'POST':
         return send_data(request)
 
 
 @app.route('/<plot_type>', methods=['GET'])
 def flask_server0(plot_type):
-    return prepare_chart(plot_type)
+    if plot_type.startswith('send'):
+        name_and_value = list(request.args.items())[0]
+        db.execute('INSERT INTO temperatures VALUES (?, ?, ?)',
+                   [name_and_value[0], name_and_value[1],
+                    datetime.datetime.now()])
+        # db.commit()
+        return str(request.form.to_dict())
+    else:
+        return prepare_chart(plot_type)
 
 
 def get_particular_data(request_args):
@@ -67,7 +75,7 @@ def prepare_chart(plot_type):
 def send_data(request_data):
     for name, value in request_data.form.to_dict().items():
         db.execute('INSERT INTO temperatures VALUES (?, ?, ?)', [name, value, now()])
-        db.commit()
+        # db.commit()
     return str(request_data.form.to_dict())
 
 
@@ -76,8 +84,11 @@ def time():
     speedup = 100
     return str(speedup * (now().timestamp() - start_time))
 
+
 @app.route('/main')
 def main_page():
     return render_template('main.html')
+
+
 app.run(host='0.0.0.0', port='80', threaded=True)
 # app.debug = True

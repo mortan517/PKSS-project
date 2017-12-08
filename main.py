@@ -76,6 +76,8 @@ def time():
     speedup = 100
     return str(speedup * (now().timestamp() - start_time))
 
-
+@app.route('/main')
+def main_page():
+    return render_template('main.html')
 app.run(host='0.0.0.0', port='80', threaded=True)
 # app.debug = True

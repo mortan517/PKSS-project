@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
-<meta http-equiv="refresh" content="1" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -48,26 +47,15 @@
   <div class="w3-row w3-padding-64" >
     <div class="w3-twothird w3-container" height: 1000px>
       <h1 class="w3-text-teal">Wykres</h1>
-      <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+      <div id="myDiv"><img src="../img/agh.jpg"/></div>
     </div>
   </div>
 <!-- END MAIN -->
 </div>
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 <script>
-  // Jinja begin
-  {% for key, value in name.items() %}
-    var trace{{ key }} = {
-      x: {{ name[key][0]|safe }}, 
-      y: [{{ name[key][1]|join(',') }}], 
-      type: 'scatter',
-      name: '{{key}}'
-    };
-  {% endfor %}
-  var data = [{% for key, value in name.items() %}trace{{key}},{% endfor %}];
-  Plotly.newPlot('myDiv', data);
-  // Jinja end
+
 
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
